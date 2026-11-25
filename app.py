@@ -4,88 +4,109 @@ import time
 
 st.session_state.price = 5
 
-
-st.html('''
+st.markdown('''
 	<style>
 	.stApp{
-	background-color: pink;
-	color: #111
+	background-color: #211812;
+	color: #e6bb83
 	}
 	.stButton Button{
-	background-color: purple;
-	color: #fff
+	background-color: #503b2c;
+	color: #111
 	}
 	.stMetric Label {
 	color: #111;
 	}
 	.stMarkdownEllipsis {
-	color: #111;
+	color: #e6bb83;
 	}
 	.stSidebar{
-	background-color: pink
+	background-color: #211812;
+	color: #e6bb83
 	}
 	.st-key-money{
 	color: blue
 	}
+	hr{
+	border-color: #e6bb83 !important
+	}
+	.stContainer{
+	background-color: red;
+	}
+
+	div[role="slider"]{
+	background-color: blue !important;
+	}
 	</style>
-	''')
-
-
+	''', unsafe_allow_html=True)
 
 create_db()
 data = display_data()
 
-if len(data) <= 1:
-	totals = 0
-else:
-	totals = 600+(data[0][2]*st.session_state.price)+(data[1][2]*st.session_state.price)+(data[2][2]*st.session_state.price)
-
-st.title('Coffee Sales tracker v1.0')
-with st.container(key='money'):
-	st.subheader(f'Current Money: R {totals}')
+st.title('The Coffee Club')
+st.text('Every Cup Counts')
 st.divider()
 
-# if st.button("Manage Users"):
-# 	st.switch_page('pages/Configurations.py')
+c1,c2 = st.columns(2)
+with c1.container(border=True):
+	st.subheader('Current balance')
+	money = sum(row[2] for row in data)*5
+	st.metric('Rand', f'R {money}.00')
 
+with c2.container(border=True):
+	st.subheader('Cups Served')
+	total_cups = sum(row[2] for row in data)
+	st.metric('Cups', f'{total_cups}')
 
+with st.container(border=True):
+	st.subheader('Savings Goal')
+	goal = 1900
+	c1,c2 = st.columns(2,vertical_alignment='center')
+	current = sum(row[2] for row in data)*5
+	cur = int((current/goal)*100)
+	c1.subheader(f'R {current} / R {goal}')
+	c2.metric('Goal %',value=cur)
 
-if len(data) <= 1:
-	st.info('No users to display')
-else:
-	c1,c2,c3 = st.columns(3)
-	with c1.container(border=True):
-		if st.button('Add a cup for Francois'):
-			name = 'Francois'
+st.header('Customers')
+with st.container(border=True, key='customer_card_1'):
+	c1,c2 = st.columns([0.6,0.4],vertical_alignment='center')
+	with c1:
+		st.header(data[0][1])
+		st.text(f'{data[0][2]} coffees served')
+	with c2:
+		if st.button(f'+ Coffee {data[0][1]}'):
+			name = data[0][1]
 			qty = data[0][2]+1
-			st.info(qty)
 			update(name,qty)
 			st.balloons()
 			time.sleep(2)
 			st.rerun()
-		st.subheader(data[0][1])
-		st.metric(label='Cups',value=data[0][2])
 
-	with c2.container(border=True):
-		if st.button('Add a cup for Andre'):
-			name = 'Andre'
+
+with st.container(border=True, key='customer_card_2'):
+	c1,c2 = st.columns([0.6,0.4],vertical_alignment='center')
+	with c1:
+		st.header(data[1][1])
+		st.text(f'{data[1][2]} coffees served')
+	with c2:
+		if st.button(f'+ Coffee {data[1][1]}'):
+			name = data[1][1]
 			qty = data[1][2]+1
-			st.info(qty)
 			update(name,qty)
 			st.balloons()
 			time.sleep(2)
 			st.rerun()
-		st.subheader(data[1][1])
-		st.metric(label='Cups',value=data[1][2])
 
-	with c3.container(border=True):
-		if st.button('Add a cup for Marelize'):
-			name = 'Marelize'
+with st.container(border=True, key='customer_card_3'):
+	c1,c2 = st.columns([0.6,0.4],vertical_alignment='center')
+	with c1:
+		st.header(data[2][1])
+		st.text(f'{data[2][2]} coffees served')
+	with c2:
+		if st.button(f'+ Coffee {data[2][1]}'):
+			name = data[2][1]
 			qty = data[2][2]+1
-			st.info(qty)
 			update(name,qty)
 			st.balloons()
 			time.sleep(2)
 			st.rerun()
-		st.subheader(data[2][1])
-		st.metric(label='Cups',value=data[2][2])
