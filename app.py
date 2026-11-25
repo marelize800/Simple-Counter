@@ -51,7 +51,7 @@ c1,c2 = st.columns(2)
 with c1.container(border=True):
 	st.subheader('Current balance')
 	money = sum(row[2] for row in data)*5
-	st.metric('Rand', f'R {money}.00')
+	st.metric('Rand', f'R {money+220}.00')
 
 with c2.container(border=True):
 	st.subheader('Cups Served')
