@@ -62,8 +62,8 @@ with st.container(border=True):
 	st.subheader('Savings Goal')
 	goal = 1900
 	c1,c2 = st.columns(2,vertical_alignment='center')
-	current = sum(row[2] for row in data)*5
-	cur = int((current/goal)*100+220)
+	current = sum(row[2] for row in data)*5+220
+	cur = int((current/goal)*100)
 	c1.subheader(f'R {current} / R {goal}')
 	c2.metric('Goal %',value=cur)
 
