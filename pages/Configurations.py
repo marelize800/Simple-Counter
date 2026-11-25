@@ -4,36 +4,40 @@ from lib.db_handler import add_user
 st.title('Nothing to see here')
 # st.text('Configure pricing,quantities and more')
 # st.divider()
-
-st.html('''
+st.markdown('''
 	<style>
 	.stApp{
-	background-color: pink;
-	color: #111
+	background-color: #211812;
+	color: #e6bb83
 	}
 	.stButton Button{
-	background-color: purple;
-	color: #fff
+	background-color: #503b2c;
+	color: #111
 	}
-
-	.stFormSubmitButton Button{
-	background-color:purple
-	}
-
 	.stMetric Label {
 	color: #111;
 	}
 	.stMarkdownEllipsis {
-	color: #111;
+	color: #e6bb83;
 	}
 	.stSidebar{
-	background-color: pink
+	background-color: #211812;
+	color: #e6bb83
 	}
-	.stMarkdownContainer{
-	color: #111
+	.st-key-money{
+	color: blue
 	}
-	</style>
-	''')
+	hr{
+	border-color: #e6bb83 !important
+	}
+	.stContainer{
+	background-color: red;
+	}
+
+	div[role="slider"]{
+	background-color: blue !important;
+	}
+	</style>''',unsafe_allow_html=True)
 
 
 # st.subheader('Add user')
